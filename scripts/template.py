@@ -3,7 +3,7 @@ import contextlib
 import gradio as gr
 from modules import scripts
 from modules import script_callbacks
-from translate_functions import translate_text, translate_text_api
+from translate_functions import translate_text_api
 
 
 def send_text_to_prompt(text, box):
