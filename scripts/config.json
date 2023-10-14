@@ -1,0 +1,6 @@
+{
+  "translate_language": "es",
+  "voice_detector": "es-ES",
+  "is_accordion_auto_opened": false,
+  "translate_api_url": "https://translator.athosnetwork.es/translate"
+}
