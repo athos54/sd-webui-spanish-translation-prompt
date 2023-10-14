@@ -1,25 +1,22 @@
-from transformers import MBartForConditionalGeneration, MBart50TokenizerFast
 import requests
 import json
-from modules import devices, modelloader, script_callbacks, errors
-from modules.shared import opts
 import os
 
-ruta_al_archivo_dict = os.path.join(os.path.dirname(
+config_file_path = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'config.json').replace("\\", "/")
 
-ruta_al_archivo_dict = os.path.normpath(ruta_al_archivo_dict)
+config_file_path = os.path.normpath(config_file_path)
 
-with open(ruta_al_archivo_dict, 'r') as archivo:
-    diccionario_cargado = json.load(archivo)
+with open(config_file_path, 'r') as file:
+    loaded_dictionary = json.load(file)
 
 
 def translate_text_api(text):
-    url = diccionario_cargado["translate_api_url"].lower()
+    url = loaded_dictionary["translate_api_url"].lower()
 
     payload = {
         "q": text,
-        "source": diccionario_cargado["translate_language"],
+        "source": loaded_dictionary["translate_language"],
         "target": "en",
         "format": "text",
         "api_key": ""

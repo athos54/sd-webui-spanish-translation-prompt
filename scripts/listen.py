@@ -1,16 +1,14 @@
-import time
-import speech_recognition as sr
-import sys
 import os
 import json
+import speech_recognition as sr
 
-ruta_al_archivo_dict = os.path.join(os.path.dirname(
+config_file_path = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'config.json').replace("\\", "/")
 
-ruta_al_archivo_dict = os.path.normpath(ruta_al_archivo_dict)
+config_file_path = os.path.normpath(config_file_path)
 
-with open(ruta_al_archivo_dict, 'r') as archivo:
-    diccionario_cargado = json.load(archivo)
+with open(config_file_path, 'r') as file:
+    loaded_dictionary = json.load(file)
 
 
 class SpeechListener:
@@ -23,13 +21,13 @@ class SpeechListener:
     def callback(self, recognizer, audio):
         try:
             self.result = recognizer.recognize_google(
-                audio, language=diccionario_cargado["voice_detector"])
-            print("Has dicho: " + self.result)
+                audio, language=loaded_dictionary["voice_detector"])
+            print("You said: " + self.result)
         except sr.UnknownValueError:
             print("Google Speech Recognition could not understand audio")
         except sr.RequestError as e:
             print(
-                "Could not request results from Google Speech Recognition service; {0}".format(e))
+                f"Could not request results from Google Speech Recognition service; {e}")
         except Exception as e:
             print(e)
 
